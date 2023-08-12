@@ -6,17 +6,22 @@ public class Email {
     private String password;
     private String department;
     private String alternativeEmail;
+    private int defaultPasswordLength = 8;
     private int mailboxCapacity;
 
     public Email(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         System.out.println("Email Created Successfully! : " + firstName + " " + lastName);
+
         String dep = setDepartment();
         while (dep == "Error")
             dep = setDepartment();
         this.department = dep;
-        System.out.println("Department: " + dep);
+        System.out.println("Department: " + this.department);
+
+        this.password = generatePassword(9);
+        System.out.println("The Password is: " + this.password);
     }
     private String setDepartment() {
         int choice;
@@ -37,5 +42,14 @@ public class Email {
             System.out.println("Invalid Choice!!");
             return "Error";
         }
+    }
+    private String generatePassword(int length) {
+        String passwordSet = "ABCDEFJHIJKLMNOPQRSTUVWXYZ0123456789!@#$%";
+        char[] password = new char[length];
+        for (int i = 0; i < length; i++) {
+            int k = (int)(Math.random() * passwordSet.length());
+            password[i] = passwordSet.charAt(k);
+        }
+        return new String(password);
     }
 }
